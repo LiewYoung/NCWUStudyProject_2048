@@ -6,13 +6,14 @@ public class BoardControl {
     int[][] board;
     Random random = new Random();
 
-    //创建棋盘函数
+    //创建棋盘方法
     public void CreateBoard() {
         board = new int[GameConfig.BoardSize][GameConfig.BoardSize];
         AddNumber();
         AddNumber();
     }
-    //添加数字函数
+
+    //添加数字方法
     public void AddNumber() {
         int row,col;
         //random到的坐标如果没数字（0）结束循环
@@ -28,6 +29,7 @@ public class BoardControl {
         }
     }
 
+    //20251204测试函数
     public void testfunc() {
         System.out.println("\n======2048  Game======");
         for (int i = 0; i < GameConfig.BoardSize; i++) {
@@ -39,5 +41,34 @@ public class BoardControl {
             System.out.println();
         }
         System.out.println("======================");
+    }
+
+    //判断游戏结束方法
+    public boolean isGameOver() {
+        //检查棋盘上是否有空位
+        for(int i = 0;i < GameConfig.BoardSize;i++){
+            for(int j = 0;j < GameConfig.BoardSize;j++){
+                if(board[i][j] == 0){
+                    return false;
+                }
+            }
+        }
+        //检查棋盘横向是否有相同的可合并的数字
+        for(int i = 0;i < GameConfig.BoardSize;i++){
+            for(int j = 0;j < GameConfig.BoardSize - 1;j++){
+                if(board[i][j] == board[i][j+1]){
+                    return false;
+                }
+            }
+        }
+        //检查棋盘纵向是否有相同的可合并的数字
+        for(int i = 0;i < GameConfig.BoardSize - 1;i++){
+            for(int j = 0;j < GameConfig.BoardSize;j++){
+                if(board[i][j] == board[i+1][j]){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
